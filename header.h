@@ -1,6 +1,13 @@
+#include <vector>
+#ifndef PLAYER_H
+#define PLAYER_H
+
+using namespace std;
+
 //This file will serve as the main header file for the program
 
 //exhaustive search algorithms
+void bruteForcePDP(vector<int>& a, int n);
 
 //greedy algorithms
 
@@ -17,3 +24,5 @@
 //hidden markov models
 
 //randomized algorithms
+
+#endif
