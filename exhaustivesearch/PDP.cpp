@@ -1,7 +1,10 @@
 #include <iostream>
 #include <vector>
-#include "header.h"
+#include "../header.h"
 using namespace std;
+
+
+//PARTIAL DIGEST PROBLEM (PDP)///////////////////////
 
 
 vector<int> delta(vector<int>& x)
@@ -27,18 +30,14 @@ vector<int> delta(vector<int>& x)
 		j--;
 	}
 
-	cout << "Delta X" << endl;
-	for(int i = 0; i < delta.size(); i++)
-	{
-		cout << delta.at(i) << ", ";
-	}
 
 	//merge sort of delta x
-	
+	vectormergesort(delta, 0, (delta.size()-1));
+
 	return delta;
 }
 
-//takes roughly O(M^n-2) time
+//takes roughly O(n^2n-4) time
 void bruteForcePDP(vector<int>& x, int n)
 {
 	int m = 0;
@@ -54,5 +53,13 @@ void bruteForcePDP(vector<int>& x, int n)
 
 	//delta creates the pairwise distance of all points in multiset X
 	vector<int> delta_x = delta(x); 
- 
+
+	cout << "Delta X" << endl;
+	for(int i = 0; i < delta_x.size(); i++)
+	{
+		cout << delta_x.at(i) << " ";
+	}
 }
+
+
+//END PARTIAL DIGEST PROBLEM (PDP)///////////////////
