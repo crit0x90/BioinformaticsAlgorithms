@@ -4,62 +4,110 @@
 using namespace std;
 
 
-//PARTIAL DIGEST PROBLEM (PDP)///////////////////////
+//removes all instances of target from vector L
+void Delete(int target, vector<int>& L)
+{
+	int initsize = L.size();
+	
+	for(int i = 0; i < L.size(); i++)
+	{
+		if(L.at(i) == target)
+		{
+			L.erase(L.begin()+i);
+		}
+	}
 
+	int finalsize = L.size();
 
-vector<int> delta(vector<int>& x)
+	if (finalsize < initsize)
+	{
+		Delete(target, L);
+	}
+}
+
+//generates a vector of distances between y and 
+//every element of X
+vector<int> delta(int y, vector<int>& X)
 {
 	vector<int> delta;
-	int j = x.size() - 1;
 
-	cout << "X" << endl;
-	for(int i = 0; i < j; i++)
+	for(int i = 0; i < X.size(); i++)
 	{
-		cout << x.at(i) << " ";
-	}
-	cout << endl;
-	
-	while(j > 0)
-	{
-		for(int i = 0; i < j; i++)
+		if(y > X.at(i))
 		{
-			cout << "i: " << i << " j: " << j << endl;
-			delta.push_back((x.at(j) - x.at(i)));
+			delta.push_back(y - X.at(i));
 		}
-
-		j--;
+		else
+		{
+			delta.push_back(X.at(i) - y);
+		}
 	}
 
-
-	//merge sort of delta x
-	vectormergesort(delta, 0, (delta.size()-1));
-
-	return delta;
+	printVector(delta);
 }
 
-//takes roughly O(n^2n-4) time
-void bruteForcePDP(vector<int>& x, int n)
+//helper function for subset
+bool in(int x, vector<int>& L)
 {
-	int m = 0;
+	bool flag = false;
 
-	//get max elt in vector for m
-	for(int i = 0; i < x.size(); i++)
+	for(int i = 0; i < L.size(); i++)
 	{
-		if(x.at(i) > m)
+		if(x == L.at(i))
 		{
-			m = x.at(i);
+			flag = true;
 		}
 	}
-
-	//delta creates the pairwise distance of all points in multiset X
-	vector<int> delta_x = delta(x); 
-
-	cout << "Delta X" << endl;
-	for(int i = 0; i < delta_x.size(); i++)
-	{
-		cout << delta_x.at(i) << " ";
-	}
+	return flag;
 }
 
+//checks if vector v is a subset of vector L
+bool subset(vector<int> &v, vector<int>& L)
+{
+	bool flag = true;
 
-//END PARTIAL DIGEST PROBLEM (PDP)///////////////////
+	for(int i = 0; i < v.size(); i++)
+	{
+		if(!in(v.at(i), L))
+		{
+			flag = false;
+		}
+	}
+	return flag;
+}
+
+void Place(vector<int>& L, vector<int>& X)
+{
+	if(L.size() == 0)
+	{
+		printVector(X);
+		return;
+	}
+
+	int y = L.at(L.size()-1);
+
+	//vector<int> delta_yX = 
+	delta(y,X);
+	/*
+	printVector(delta_yX);
+	if(subset(delta_yX, L))
+	{
+		cout << "do something" << endl;
+	}
+	
+	vector<int> delta_widthX = delta(L.at(L.size()-1)-y, X);
+	if(subset(delta_widthX, L))
+	{
+		cout << "do something else";
+	}
+	*/
+	return;
+}
+
+void partialDigest(vector<int>& L)
+{
+	int width = L.at(L.size()-1);
+	Delete(width, L);
+	vector<int> X = {0, width};
+	Place(L, X);
+}

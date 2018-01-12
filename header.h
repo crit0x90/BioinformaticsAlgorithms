@@ -15,16 +15,14 @@ int mergesort(int arr[], int l, int r);
 
 void vectormergesort(vector<int>& v, int l, int r);
 
+void printVector(vector<int>& v);
 //****************************************************
 
 
 //****************************************************
 //exhaustive search algorithms
 
-
-//vector x is the multiset of pairwise distances between points
-//n is the size of x
-void bruteForcePDP(vector<int>& x, int n);
+void partialDigest(vector<int>& L);
 
 //****************************************************
 
