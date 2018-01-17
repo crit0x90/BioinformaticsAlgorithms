@@ -25,6 +25,25 @@ void Delete(int target, vector<int>& L)
 	}
 }
 
+//removes vector a from L
+void removeLengths(vector<int>& a, vector<int>& L)
+{
+	for(int i = 0; i < a.size(); i++)
+	{
+		Delete(a.at(i), L);
+	}
+}
+
+//adds a vector a to L
+void addLengths(vector<int>& a, vector<int>& L)
+{
+	for(int i = 0; i < a.size(); i++)
+	{
+		L.push_back(a.at(i));
+	}
+	vectormergesort(L, 0, L.size()-1);
+}
+
 //generates a vector of distances between y and 
 //every element of X
 vector<int> delta(int y, vector<int>& X)
@@ -43,7 +62,8 @@ vector<int> delta(int y, vector<int>& X)
 		}
 	}
 
-	printVector(delta);
+	//printVector(delta);
+	return delta;
 }
 
 //helper function for subset
@@ -86,21 +106,28 @@ void Place(vector<int>& L, vector<int>& X)
 
 	int y = L.at(L.size()-1);
 
-	//vector<int> delta_yX = 
-	delta(y,X);
-	/*
+	vector<int> delta_yX = delta(y,X);
+	
 	printVector(delta_yX);
 	if(subset(delta_yX, L))
 	{
-		cout << "do something" << endl;
+		X.push_back(y);
+		removeLengths(delta_yX, L);
+		Place(L, X);
+		Delete(y, X);
+		addLengths(delta_yX, L);
 	}
 	
 	vector<int> delta_widthX = delta(L.at(L.size()-1)-y, X);
 	if(subset(delta_widthX, L))
 	{
-		cout << "do something else";
+		X.push_back(L.size()-y);
+		removeLengths(delta_widthX, L);
+		Place(L, X);
+		Delete(L.size()-y, X);
+		addLengths(delta_widthX, L);
 	}
-	*/
+
 	return;
 }
 
