@@ -99,7 +99,8 @@ bool subset(vector<int> &v, vector<int>& L)
 void Place(vector<int>& L, vector<int>& X)
 {
 	if(L.size() == 0)
-	{
+	{	
+		vectormergesort(X, 0, X.size()-1);
 		printVector(X);
 		return;
 	}
@@ -108,7 +109,6 @@ void Place(vector<int>& L, vector<int>& X)
 
 	vector<int> delta_yX = delta(y,X);
 	
-	printVector(delta_yX);
 	if(subset(delta_yX, L))
 	{
 		X.push_back(y);
@@ -121,10 +121,10 @@ void Place(vector<int>& L, vector<int>& X)
 	vector<int> delta_widthX = delta(L.at(L.size()-1)-y, X);
 	if(subset(delta_widthX, L))
 	{
-		X.push_back(L.size()-y);
+		X.push_back(L.at(L.size()-1)-y);
 		removeLengths(delta_widthX, L);
 		Place(L, X);
-		Delete(L.size()-y, X);
+		Delete(L.at(L.size()-1)-y, X);
 		addLengths(delta_widthX, L);
 	}
 

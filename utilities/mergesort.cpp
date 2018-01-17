@@ -155,3 +155,20 @@ void vectormergesort(vector<int>& v, int l, int r)
 	}
 }
 //end vector based version
+/*
+//for testing purposes
+int main()
+{
+	vector<int> v = {2,6,4,3,1};
+	v.push_back(9);
+	v.push_back(5);
+
+	vectormergesort(v, 0, v.size()-1);
+
+	for(int i = 0; i < v.size(); i++)
+	{
+		cout << v.at(i) << " ";
+	}
+	return 0;
+}
+*/
