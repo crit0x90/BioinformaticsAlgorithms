@@ -61,8 +61,10 @@ vector<int> delta(int y, vector<int>& X)
 			delta.push_back(X.at(i) - y);
 		}
 	}
-
-	//printVector(delta);
+	cout << "y" << y << endl;
+	cout << "delta" << endl;
+	printVector(delta);
+	cout << endl;
 	return delta;
 }
 
@@ -96,12 +98,14 @@ bool subset(vector<int> &v, vector<int>& L)
 	return flag;
 }
 
-void Place(vector<int>& L, vector<int>& X)
+void Place(vector<int>& L, vector<int>& X, int width)
 {
 	if(L.size() == 0)
 	{	
 		vectormergesort(X, 0, X.size()-1);
+		cout << "Solution: ";
 		printVector(X);
+		cout << endl;
 		return;
 	}
 
@@ -111,20 +115,22 @@ void Place(vector<int>& L, vector<int>& X)
 	
 	if(subset(delta_yX, L))
 	{
+		cout << "**" << endl;
 		X.push_back(y);
 		removeLengths(delta_yX, L);
-		Place(L, X);
+		Place(L, X, width);
 		Delete(y, X);
 		addLengths(delta_yX, L);
 	}
 	
-	vector<int> delta_widthX = delta(L.at(L.size()-1)-y, X);
+	vector<int> delta_widthX = delta(width-y, X);
 	if(subset(delta_widthX, L))
 	{
-		X.push_back(L.at(L.size()-1)-y);
+		cout << "##" << endl;
+		X.push_back(width-y);
 		removeLengths(delta_widthX, L);
-		Place(L, X);
-		Delete(L.at(L.size()-1)-y, X);
+		Place(L, X, width);
+		Delete(width-y, X);
 		addLengths(delta_widthX, L);
 	}
 
@@ -136,5 +142,5 @@ void partialDigest(vector<int>& L)
 	int width = L.at(L.size()-1);
 	Delete(width, L);
 	vector<int> X = {0, width};
-	Place(L, X);
+	Place(L, X, width);
 }
