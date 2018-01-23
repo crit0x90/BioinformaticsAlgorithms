@@ -14,14 +14,8 @@ void Delete(int target, vector<int>& L)
 		if(L.at(i) == target)
 		{
 			L.erase(L.begin()+i);
+			return;
 		}
-	}
-
-	int finalsize = L.size();
-
-	if (finalsize < initsize)
-	{
-		Delete(target, L);
 	}
 }
 
@@ -61,10 +55,6 @@ vector<int> delta(int y, vector<int>& X)
 			delta.push_back(X.at(i) - y);
 		}
 	}
-	cout << "y" << y << endl;
-	cout << "delta" << endl;
-	printVector(delta);
-	cout << endl;
 	return delta;
 }
 
@@ -115,7 +105,6 @@ void Place(vector<int>& L, vector<int>& X, int width)
 	
 	if(subset(delta_yX, L))
 	{
-		cout << "**" << endl;
 		X.push_back(y);
 		removeLengths(delta_yX, L);
 		Place(L, X, width);
@@ -126,7 +115,6 @@ void Place(vector<int>& L, vector<int>& X, int width)
 	vector<int> delta_widthX = delta(width-y, X);
 	if(subset(delta_widthX, L))
 	{
-		cout << "##" << endl;
 		X.push_back(width-y);
 		removeLengths(delta_widthX, L);
 		Place(L, X, width);
